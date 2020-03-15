@@ -2,8 +2,9 @@
 using NUnit.Allure.Attributes;
 using NUnit.Framework;
 
-using QaAutoTests.DataStructures;
+using QaAutoTests.DataObjects;
 using QaAutoTests.Pages;
+using System.Collections;
 
 namespace QaAutoTests.Tests
 {
@@ -23,37 +24,26 @@ namespace QaAutoTests.Tests
 
 		[AllureTms("TestCaseSource-Attribute")]
 		[AllureSeverity(SeverityLevel.blocker)]
-		[TestCaseSource("FormData")]
-		public void SubmitFormWithAllParametersTest(string firstName, string lastName, string email,
-			string phone, string addresLine1, string addresLine2, string city, string zipCode, State state, int itemNumber, string comment)
+		[TestCaseSource("TestCases")]
+		public bool SubmitFormWithAllParametersTest(BillingOrder order)
 		{
 			var billingOrderPage = new BillingOrderPage(Driver);
 
-			billingOrderPage.SendOrderForm(
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				phone: phone,
-				addressLine1: addresLine1,
-				addressLine2: addresLine2,
-				city: city,
-				zipCode: zipCode,
-				state: state,
-				itemNumber: itemNumber,
-				comment: comment);
+			billingOrderPage.SendOrderForm(order);
 
-			Assert.IsTrue(billingOrderPage.IsSuccessMessageDisplayed(),
-				"Error: there is no success message on the page");
+			return billingOrderPage.IsSuccessMessageDisplayed();
 		}
 
-		static object[] FormData =
+		public static IEnumerable TestCases
 		{
-			new object[] { "John", "Smith", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.AK, 1, "Simple last name" },
-			new object[] { "John", "O'Brien", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.DE, 2, "Last name with apostrophe" },
-			new object[] { "John", "Smith-Klein", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.NE, 3, "Last name with hypen" },
-			new object[] { "John", "Van Kempen", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.OH, 1, "Last name with multiple words" },
-			new object[] { "John", "Li", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.WV, 2, "Short last name" },
-			new object[] { "John", "Wolfeschlegelsteinhausenbergerdorff", "email@gmail.com", "8-800-2990-555", "Address Line 1", "Address Line 2", "City", "63923", State.WY, 3, "Long last name" }
-		};
+			get
+			{
+				yield return new TestCaseData(new BillingOrder() { LastName = "Smith" }).SetName("Simple last name").Returns(true);
+				yield return new TestCaseData(new BillingOrder() { LastName = "O'Brien" }).SetName("Last name with apostrophe").Returns(true);
+				yield return new TestCaseData(new BillingOrder() { LastName = "Smith-Klein" }).SetName("Last name with hypen").Returns(true);
+				yield return new TestCaseData(new BillingOrder() { LastName = "Li" }).SetName("Short last name").Returns(true);
+				yield return new TestCaseData(new BillingOrder() { LastName = "" }).SetName("Empty last name").Returns(false);
+			}
+		}
 	}
 }

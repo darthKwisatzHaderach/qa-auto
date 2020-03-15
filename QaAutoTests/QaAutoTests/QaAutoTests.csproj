@@ -76,7 +76,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataStructures\State.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Models\BillingOrder.cs" />
+    <Compile Include="Dictionaries\State.cs" />
     <Compile Include="Extensions\CustomTestContext.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Pages\AuthorizationPage.cs" />

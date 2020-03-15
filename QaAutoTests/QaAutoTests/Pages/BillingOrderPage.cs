@@ -4,8 +4,9 @@ using NUnit.Allure.Steps;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
-using QaAutoTests.DataStructures;
 using QaAutoTests.Extensions;
+using QaAutoTests.DataObjects;
+using QaAutoTests.Dictionaries;
 
 namespace QaAutoTests.Pages
 {
@@ -156,31 +157,20 @@ namespace QaAutoTests.Pages
 		#region Complex methods
 
 		[AllureStep("Submit order form")]
-		public BillingOrderPage SendOrderForm(
-			string firstName,
-			string lastName,
-			string email,
-			string phone,
-			string addressLine1,
-			string addressLine2,
-			string city,
-			string zipCode,
-			State state,
-			int itemNumber,
-			string comment)
+		public BillingOrderPage SendOrderForm(BillingOrder order)
 		{
-			FillFirstName(firstName);
-			FillLastName(lastName);
-			FillEmail(email);
-			FillPhone(phone);
-			FillAddressLine1(addressLine1);
-			FillAddressLine2(addressLine2);
-			FillCity(city);
-			FillZipCode(zipCode);
+			FillFirstName(order.FirstName);
+			FillLastName(order.LastName);
+			FillEmail(order.Email);
+			FillPhone(order.Phone);
+			FillAddressLine1(order.AddressLine1);
+			FillAddressLine2(order.AddressLine2);
+			FillCity(order.City);
+			FillZipCode(order.ZipCode);
 			ClickStateSelect();
-			ClickStateOption(state);
+			ClickStateOption(order.State);
 
-			switch (itemNumber)
+			switch (order.ItemNumber)
 			{
 				case 1:
 					ClickFirstItemRadioButton();
@@ -195,7 +185,7 @@ namespace QaAutoTests.Pages
 					throw new Exception("Item number must be 1,2 or 3");
 			}
 
-			FillComment(comment);
+			FillComment(order.Comment);
 			ClickSubmitButton();
 
 			return this;
@@ -210,7 +200,7 @@ namespace QaAutoTests.Pages
 		{
 			CustomTestContext.WriteLine("Check success message displayed");
 
-			return Driver.WaitUntilElementIsDisplay(By.XPath(SUCCESS_MESSAGE));
+			return Driver.WaitUntilElementIsDisplay(By.XPath(SUCCESS_MESSAGE), TimeSpan.FromSeconds(3));
 		}
 
 		#endregion

@@ -1,4 +1,4 @@
-﻿namespace QaAutoTests.DataStructures
+﻿namespace QaAutoTests.Dictionaries
 {
 	public enum State
 	{
