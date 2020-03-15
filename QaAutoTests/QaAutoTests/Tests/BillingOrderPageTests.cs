@@ -3,6 +3,7 @@ using NUnit.Allure.Attributes;
 using NUnit.Framework;
 
 using QaAutoTests.DataObjects;
+using QaAutoTests.Dictionaries;
 using QaAutoTests.Pages;
 using System.Collections;
 
@@ -12,6 +13,8 @@ namespace QaAutoTests.Tests
 	[Parallelizable(ParallelScope.Fixtures)]
 	public class BillingOrderPageTests : BaseTest
 	{
+		public BillingOrderPageTests(Browser browser) : base(browser) {}
+
 		[SetUp]
 		public void SetUp()
 		{

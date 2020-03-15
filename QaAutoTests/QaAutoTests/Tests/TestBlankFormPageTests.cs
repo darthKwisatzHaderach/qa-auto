@@ -1,6 +1,8 @@
 ﻿using Allure.Commons;
 using NUnit.Allure.Attributes;
 using NUnit.Framework;
+
+using QaAutoTests.Dictionaries;
 using QaAutoTests.Pages;
 
 namespace QaAutoTests.Tests
@@ -9,6 +11,8 @@ namespace QaAutoTests.Tests
 	[Parallelizable(ParallelScope.Fixtures)]
 	class TestBlankFormPageTests : BaseTest
 	{
+		public TestBlankFormPageTests(Browser browser) : base(browser) { }
+
 		[SetUp]
 		public void SetUp()
 		{
