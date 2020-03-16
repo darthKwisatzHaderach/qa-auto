@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Dictionaries\Browser.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\WebElementExtensions.cs" />
     <Compile Include="Models\BillingOrder.cs" />
     <Compile Include="Dictionaries\State.cs" />
     <Compile Include="Extensions\CustomTestContext.cs" />

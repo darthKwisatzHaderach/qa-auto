@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using NUnit.Allure.Steps;
 using OpenQA.Selenium;
@@ -172,6 +173,8 @@ namespace QaAutoTests.Pages
 
 			switch (order.ItemNumber)
 			{
+				case 0:
+					break;
 				case 1:
 					ClickFirstItemRadioButton();
 					break;
@@ -201,6 +204,40 @@ namespace QaAutoTests.Pages
 			CustomTestContext.WriteLine("Check success message displayed");
 
 			return Driver.WaitUntilElementIsDisplay(By.XPath(SUCCESS_MESSAGE), TimeSpan.FromSeconds(3));
+		}
+
+		[AllureStep("Check validation error messages displayed")]
+		public bool IsRequiredFieldsValidationErrorsDisplayed()
+		{
+			IList<IWebElement> requiredFields = new List<IWebElement>()
+			{
+				FirstNameInput,
+				LastNameInput,
+				EmailInput,
+				PhoneInput,
+				AddressLine1Input,
+				CityInput,
+				ZipCodeInput,
+				FirstItemRadioButton,
+				SecondItemRadioButton,
+				ThirdItemRadioButton,
+				CommentInput
+			};
+
+			Driver.WaitUntilElementIsDisplay(By.XPath(VALIDATION_ERRORS));
+
+			foreach (var field in requiredFields)
+			{
+				field.Scroll();
+
+				if (!field.GetAttribute("class").Contains("wpforms-error"))
+				{
+					CustomTestContext.WriteLine($"There is no validation message in field - {field.GetAttribute("name")}");
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		#endregion
@@ -261,6 +298,7 @@ namespace QaAutoTests.Pages
 		private const string THIRD_ITEM = "//input[@data-amount=\"30.00\"]";
 
 		private const string SUCCESS_MESSAGE = "//p[text()='Thanks for contacting us! We will be in touch with you shortly.']";
+		private const string VALIDATION_ERRORS = "//*[contains(@class, 'wpforms-error')]";
 
 		#endregion
 	}

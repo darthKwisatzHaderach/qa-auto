@@ -31,17 +31,17 @@ namespace QaAutoTests.DataObjects
 			int itemNumber = 1,
 			string comment = null)
 		{
-			FirstName = string.IsNullOrEmpty(firstName) ? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper() : firstName;
-			LastName = string.IsNullOrEmpty(lastName) ? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper() : lastName;
-			Email = string.IsNullOrEmpty(email) ? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890") + "@gmail.com" : email;
-			Phone = string.IsNullOrEmpty(phone) ? TestContext.CurrentContext.Random.GetString(10, "1234567890") : phone;
-			City = string.IsNullOrEmpty(city) ? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890").FirstCharToUpper() : city;
-			ZipCode = string.IsNullOrEmpty(zipCode) ? TestContext.CurrentContext.Random.GetString(5, "1234567890") : zipCode;
+			FirstName = firstName ?? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper();
+			LastName = lastName ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper();
+			Email = email ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890");
+			Phone = phone ?? TestContext.CurrentContext.Random.GetString(10, "1234567890");
+			City = city ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890").FirstCharToUpper();
+			ZipCode = zipCode ?? TestContext.CurrentContext.Random.GetString(5, "1234567890");
 			State = state;
-			AddressLine1 = string.IsNullOrEmpty(addressLine1) ? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz").FirstCharToUpper() : addressLine1;
-			AddressLine2 = string.IsNullOrEmpty(addressLine2) ? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz").FirstCharToUpper() : addressLine2;
+			AddressLine1 = addressLine1 ?? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz").FirstCharToUpper();
+			AddressLine2 = addressLine2 ?? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz").FirstCharToUpper();
 			ItemNumber = itemNumber;
-			Comment = string.IsNullOrEmpty(comment) ? TestContext.CurrentContext.Random.GetString(100, "abcde fghijklm nopqrstu vwxyz 12345 67890").FirstCharToUpper() : comment;
+			Comment = comment ?? TestContext.CurrentContext.Random.GetString(100, "abcde fghijklm nopqrstu vwxyz 12345 67890").FirstCharToUpper();
 		}
 	};
 }

@@ -1,11 +1,12 @@
-﻿using Allure.Commons;
+﻿using System.Collections;
+
+using Allure.Commons;
 using NUnit.Allure.Attributes;
 using NUnit.Framework;
 
 using QaAutoTests.DataObjects;
 using QaAutoTests.Dictionaries;
 using QaAutoTests.Pages;
-using System.Collections;
 
 namespace QaAutoTests.Tests
 {
@@ -35,6 +36,17 @@ namespace QaAutoTests.Tests
 			billingOrderPage.SendOrderForm(order);
 
 			return billingOrderPage.IsSuccessMessageDisplayed();
+		}
+
+		[AllureSeverity(SeverityLevel.normal)]
+		[Test]
+		public void RequiredFieldsTest()
+		{
+			var billingOrderPage = new BillingOrderPage(Driver);
+
+			billingOrderPage.ClickSubmitButton();
+
+			Assert.IsTrue(billingOrderPage.IsRequiredFieldsValidationErrorsDisplayed());
 		}
 
 		public static IEnumerable TestCases
