@@ -35,6 +35,8 @@ namespace QaAutoTests.Tests
 		[OneTimeSetUp]
 		public void OneTimeSetUp()
 		{
+			Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
+
 			DriverOptions options = initOptions(_browser, _version);
 			Driver = new RemoteWebDriver(options);
 			Driver.Manage().Window.Maximize();
