@@ -33,8 +33,9 @@ namespace QaAutoTests.Tests
 		[OneTimeSetUp]
 		public void OneTimeSetUp()
 		{
-			DriverOptions options = initOptions(_browser);
-			Driver = new RemoteWebDriver(options);
+			Driver = new ChromeDriver();
+			//DriverOptions options = initOptions(_browser);
+			//Driver = new RemoteWebDriver(options);
 			Driver.Manage().Window.Maximize();
 		}
 

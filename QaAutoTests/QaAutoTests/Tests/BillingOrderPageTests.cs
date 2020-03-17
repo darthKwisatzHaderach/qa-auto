@@ -49,6 +49,35 @@ namespace QaAutoTests.Tests
 			Assert.IsTrue(billingOrderPage.IsRequiredFieldsValidationErrorsDisplayed());
 		}
 
+		[AllureSeverity(SeverityLevel.critical)]
+		[Test]
+		public void TotalAmountTest()
+		{
+			var billingOrderPage = new BillingOrderPage(Driver);
+			var firstItemAmount = "$ 10.00";
+			var secondItemAmount = "$ 20.00";
+			var thirdItemAmount = "$ 30.00";
+
+			billingOrderPage.ClickFirstItemRadioButton();
+
+			var result1 = billingOrderPage.IsExpectedTotalAmountDisplayed(firstItemAmount);
+
+			billingOrderPage.ClickSecondItemRadioButton();
+
+			var result2 = billingOrderPage.IsExpectedTotalAmountDisplayed(secondItemAmount);
+
+			billingOrderPage.ClickThirdItemRadioButton();
+
+			var result3 = billingOrderPage.IsExpectedTotalAmountDisplayed(thirdItemAmount);
+
+			Assert.Multiple(() =>
+			{
+				Assert.IsTrue(result1, "Incorrect total amount for first item");
+				Assert.IsTrue(result2, "Incorrect total amount for second item");
+				Assert.IsTrue(result3, "Incorrect total amount for third item");
+			});
+		}
+
 		public static IEnumerable TestCases
 		{
 			get

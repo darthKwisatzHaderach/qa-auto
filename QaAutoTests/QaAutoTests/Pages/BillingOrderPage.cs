@@ -240,6 +240,24 @@ namespace QaAutoTests.Pages
 			return true;
 		}
 
+		[AllureStep("Check total amount")]
+		public bool IsExpectedTotalAmountDisplayed(string expectedAmount)
+		{
+			CustomTestContext.WriteLine($"Total amount should be {expectedAmount}");
+
+			if (Driver.IsTextPresentInElementLocated(By.XPath(TOTAL_AMOUNT), expectedAmount))
+			{
+				return true;
+			}
+			else
+			{
+				var actualText = TotalAmountTextField.Text;
+				CustomTestContext.WriteLine($"Actual result: {actualText}");
+			}
+
+			return false;
+		}
+		
 		#endregion
 
 		#region Elements
@@ -288,6 +306,9 @@ namespace QaAutoTests.Pages
 		[FindsBy(How = How.Name, Using = "wpforms[submit]")]
 		protected IWebElement SubmitButton { get; set; }
 
+		[FindsBy(How = How.XPath, Using = TOTAL_AMOUNT)]
+		protected IWebElement TotalAmountTextField { get; set; }
+
 		#endregion
 
 		#region Locators
@@ -296,6 +317,7 @@ namespace QaAutoTests.Pages
 		private const string FIRST_ITEM = "//input[@data-amount=\"10.00\"]";
 		private const string SECOND_ITEM = "//input[@data-amount=\"20.00\"]";
 		private const string THIRD_ITEM = "//input[@data-amount=\"30.00\"]";
+		private const string TOTAL_AMOUNT = "//div[@class='wpforms-payment-total']";
 
 		private const string SUCCESS_MESSAGE = "//p[text()='Thanks for contacting us! We will be in touch with you shortly.']";
 		private const string VALIDATION_ERRORS = "//*[contains(@class, 'wpforms-error')]";
