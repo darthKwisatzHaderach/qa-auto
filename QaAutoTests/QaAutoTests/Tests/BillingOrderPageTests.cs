@@ -14,8 +14,6 @@ namespace QaAutoTests.Tests
 	[Parallelizable(ParallelScope.Fixtures)]
 	public class BillingOrderPageTests : BaseTest
 	{
-		private Browser _browser;
-
 		public BillingOrderPageTests(Browser browser, string version) : base(browser, version) {}
 
 		[SetUp]
@@ -84,7 +82,7 @@ namespace QaAutoTests.Tests
 		{
 			get
 			{
-				yield return new TestCaseData(new BillingOrder() { LastName = "Smith" }).SetName($"Positive: simple last name").Returns(true);
+				yield return new TestCaseData(new BillingOrder() { LastName = "Smith" }).SetName("Positive: simple last name").Returns(true);
 				yield return new TestCaseData(new BillingOrder() { LastName = "O'Brien" }).SetName("Positive: last name with apostrophe").Returns(true);
 				yield return new TestCaseData(new BillingOrder() { LastName = "Smith-Klein" }).SetName("Positive: last name with hypen").Returns(true);
 				yield return new TestCaseData(new BillingOrder() { LastName = "Li" }).SetName("Positive: short last name").Returns(true);

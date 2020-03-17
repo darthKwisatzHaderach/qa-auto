@@ -33,7 +33,7 @@ namespace QaAutoTests.DataObjects
 		{
 			FirstName = firstName ?? TestContext.CurrentContext.Random.GetString(6, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper();
 			LastName = lastName ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz ").FirstCharToUpper();
-			Email = email ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890");
+			Email = email ?? "fake-email@gmail.com";
 			Phone = phone ?? TestContext.CurrentContext.Random.GetString(10, "1234567890");
 			City = city ?? TestContext.CurrentContext.Random.GetString(10, "abcdefghijklmnopqrstuvwxyz1234567890").FirstCharToUpper();
 			ZipCode = zipCode ?? TestContext.CurrentContext.Random.GetString(5, "1234567890");
