@@ -18,24 +18,25 @@ using QaAutoTests.Extensions;
 namespace QaAutoTests.Tests
 {
 	[AllureNUnit]
-	[TestFixture(Browser.Chrome)]
-	[TestFixture(Browser.Firefox)]
+	[TestFixture(Browser.Chrome, "80.0")]
+	[TestFixture(Browser.Firefox, "80.0")]
 	public class BaseTest
 	{
 		public IWebDriver Driver;
 		private Browser _browser;
+		private string _version;
 
-		public BaseTest(Browser browser)
+		public BaseTest(Browser browser, string version)
 		{
 			_browser = browser;
+			_version = version;
 		}
 
 		[OneTimeSetUp]
 		public void OneTimeSetUp()
 		{
-			Driver = new ChromeDriver();
-			//DriverOptions options = initOptions(_browser);
-			//Driver = new RemoteWebDriver(options);
+			DriverOptions options = initOptions(_browser, _version);
+			Driver = new RemoteWebDriver(options);
 			Driver.Manage().Window.Maximize();
 		}
 
@@ -58,25 +59,38 @@ namespace QaAutoTests.Tests
 			}
 		}
 
-		private DriverOptions initOptions(Browser browser)
+		private DriverOptions initOptions(Browser browser, string version)
 		{
+			DriverOptions options;
+
 			switch (browser)
 			{
 				case Browser.Chrome:
-					return new ChromeOptions();
+					options = new ChromeOptions();
+					break;
 				case Browser.Firefox:
-					return new FirefoxOptions();
+					options = new FirefoxOptions();
+					break;
 				case Browser.IE:
-					return new InternetExplorerOptions();
+					options = new InternetExplorerOptions();
+					break;
 				case Browser.Edge:
-					return new EdgeOptions();
+					options = new EdgeOptions();
+					break;
 				case Browser.Opera:
-					return new OperaOptions();
+					options = new OperaOptions();
+					break;
 				case Browser.Safari:
-					return new SafariOptions();
+					options = new SafariOptions();
+					break;
 				default:
-					return new ChromeOptions();
+					options = new ChromeOptions();
+					break;
 			}
+
+			options.BrowserVersion = version;
+
+			return options;
 		}
 	}
 }

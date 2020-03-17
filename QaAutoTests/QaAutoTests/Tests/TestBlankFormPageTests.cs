@@ -11,7 +11,7 @@ namespace QaAutoTests.Tests
 	[Parallelizable(ParallelScope.Fixtures)]
 	class TestBlankFormPageTests : BaseTest
 	{
-		public TestBlankFormPageTests(Browser browser) : base(browser) { }
+		public TestBlankFormPageTests(Browser browser, string version) : base(browser, version) { }
 
 		[SetUp]
 		public void SetUp()

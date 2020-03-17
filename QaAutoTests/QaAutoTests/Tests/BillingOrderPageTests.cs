@@ -14,7 +14,7 @@ namespace QaAutoTests.Tests
 	[Parallelizable(ParallelScope.Fixtures)]
 	public class BillingOrderPageTests : BaseTest
 	{
-		public BillingOrderPageTests(Browser browser) : base(browser) {}
+		public BillingOrderPageTests(Browser browser, string version) : base(browser, version) {}
 
 		[SetUp]
 		public void SetUp()
