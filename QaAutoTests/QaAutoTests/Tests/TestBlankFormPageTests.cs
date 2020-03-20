@@ -1,4 +1,8 @@
-﻿using Allure.Commons;
+﻿using System.Collections;
+using System.IO;
+
+using Allure.Commons;
+using LumenWorks.Framework.IO.Csv;
 using NUnit.Allure.Attributes;
 using NUnit.Framework;
 
@@ -36,6 +40,27 @@ namespace QaAutoTests.Tests
 			testBlankFormPage.SendForm(firstName: firstName, lastName: lastName, email: email, comment: comment);
 
 			Assert.IsTrue(testBlankFormPage.IsSuccessMessageDisplayed());
+		}
+
+		[TestCaseSource("CsvTestData")]
+		public void SubmitFormWithAllParametersFromCsvTest(string firstName, string lastName, string email, string comment)
+		{
+			var testBlankFormPage = new TestBlankFormPage(Driver);
+
+			testBlankFormPage.SendForm(firstName: firstName, lastName: lastName, email: email, comment: comment);
+
+			Assert.IsTrue(testBlankFormPage.IsSuccessMessageDisplayed());
+		}
+
+		public static IEnumerable CsvTestData()
+		{
+			using (var csv = new CsvReader(new StreamReader("C:\\Users\\Dmitrii\\Documents\\qa-auto\\QaAutoTests\\QaAutoTests\\testData\\forms.csv"), true))
+			{
+				while (csv.ReadNextRecord())
+				{
+					yield return new[] { csv[0], csv[1], csv[2], csv[3] };
+				}
+			}
 		}
 	}
 }
